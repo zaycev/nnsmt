@@ -18,17 +18,18 @@ NNSMT Translation Model
 
 ### 1. Word Alignment
 
-Word alignments are given. Some heuristic need used to make one-to-one alignment.
+Word alignments are given. Some heuristic need to be used to make one-to-one alignments.
 
 ### 2. Training
 
 Generate training examples for the distortion and translation model.
+Train the neural networks using NPLM toolkit.
 
 ### 3. Decoding
 
-Train the neural networks using our NPLM toolkit.
+The design of the decoder would be very similar to a phrase-based decoder, except that we only generate a single English word at a time.
 
 ### Related Links
 	
-* N. Durrani, A. Fraser, H. Schmid [ModelWith Minimal Translation Units, But DecodeWith Phrases](http://www.cis.uni-muenchen.de/~fraser/pubs/durrani_naacl2013.pdf)
+* N. Durrani, A. Fraser, H. Schmid [Model With Minimal Translation Units, But DecodeWith Phrases](http://www.cis.uni-muenchen.de/~fraser/pubs/durrani_naacl2013.pdf)
 
