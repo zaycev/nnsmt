@@ -33,6 +33,7 @@ For each unaligned target word, we determine the (left or right) neighbour that 
 
 The result is an alignment without target-side discontinuities and unaligned target words.
 
+![PP Rule Example](https://raw.github.com/zaycev/nnsmt/master/media/durrani_pp_aligment.png "PP Rule Example")
 
 ### 2. Training MT Model
 
