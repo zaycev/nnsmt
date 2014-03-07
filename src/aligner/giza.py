@@ -1,6 +1,9 @@
 # coding: utf-8
 # Author: Vladimir M. Zaytsev <zaytsev@usc.edu>
 
+import re
+import logging
+
 
 def load_vcb(vcb_file_path):
     """
@@ -33,12 +36,13 @@ def load_vcb(vcb_file_path):
     """
     vcb = {}
     with open(vcb_file_path, "rb") as vcb_file:
-        for i, line in eunmerate(vcb_file):
-            line = line.rstrip("\n")
+        for i, line in enumerate(vcb_file):
+            line = line.rstrip()
             row = line.split()  # splits into (#, word, freq)
             vcb[row[1]] = row[2]
-    logging.info("Loaded %d entries from %s." % vcb_file_path)
+    logging.info("Loaded %d entries from %s." % (i, vcb_file_path))
     return vcb
+
 
 class GizaAlignmentReader(object):
     """
@@ -79,9 +83,31 @@ class GizaAlignmentReader(object):
 
     Format is also described here: http://goo.gl/nFFvE8
     """
+    SNT_RE = re.compile("((\S+?) \(\{ (.*?)\}\))")
+
     def __init__(self, a3_stream):
-        pass
+        self.a3_stream = a3_stream
 
     def __iter__(self):
-        for line in self.a3_stream:
-            yield line
+        snt_no = 0
+        while True:
+            if not self.a3_stream.readline():
+                break
+            else:
+                snt_no += 1
+            s_line = self.a3_stream.readline().rstrip()
+            t_line = self.a3_stream.readline().rstrip()
+
+            t_line_parse = self.SNT_RE.findall(t_line)
+            alignment = []
+            for i, group in enumerate(t_line_parse):
+                _, t_word, t_alignment = group
+                t_alignment = t_alignment.rstrip(" ").split()
+
+                alignment.append((i+1, map(int, t_alignment)))
+
+            yield alignment
+
+            if snt_no % 10000 == 0:
+                logging.info("Sentence %d." % snt_no)
+        logging.info("Sentence %d." % snt_no)
