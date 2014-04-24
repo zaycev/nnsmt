@@ -3,7 +3,7 @@
 # C++ compiler. Tested with g++ and Intel icpc.
 CXX=g++
 #CXX=icpc
-
+# /usr/local/Cellar/gcc49/4.9.0rc1
 # Compiler options. Note that -DEIGEN_NO_DEBUG is essential for good performance!
 #CFLAGS=-g
 CFLAGS=-O3 -DEIGEN_NO_DEBUG -DNDEBUG 
@@ -19,14 +19,14 @@ OS:=$(shell uname -s)
 ### Required libraries. You must install these prior to building.
 
 # Set this to the root directory of Boost (should have a subdirectory named boost):
-BOOST=/usr/usc/boost/1.51.0
+BOOST=/usr/local/Cellar/boost/1.55.0_1
 #BOOST=/usr
 #BOOST=/opt/local
 # Where to find Boost header files
 BOOST_INC=$(BOOST)/include
 
 # Set this to the root directory of Eigen (should have a subdirectory named Eigen):
-EIGEN=../3rdparty/eigen
+EIGEN=/usr/local/Cellar/eigen/3.2.1
 
 ### Optional libraries.
 
@@ -34,13 +34,13 @@ EIGEN=../3rdparty/eigen
 OMP=1
 
 # To use the MKL library, uncomment the line below and set it to the MKL root:
-MKL=/usr/usc/intel/12.1.1/mkl
+# MKL=/usr/usc/intel/12.1.1/mkl
 
 # For Python bindings, set the following and run 'make python/nplm.so'.
 PYTHON_VERSION=2.7
 #PYTHON_ROOT=/opt/local/Library/Frameworks/Python.framework/Versions/$(PYTHON_VERSION)
-PYTHON_ROOT=/home/nlg-01/chiangd/pkg64/python
-CYTHON=$(PYTHON_ROOT)/bin/cython
+PYTHON_ROOT=/usr/local/Cellar/python/2.7.6_1
+CYTHON=/usr/local/bin/cython
 
 ##### End of configurable options #####
 
