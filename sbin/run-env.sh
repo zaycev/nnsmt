@@ -1,6 +1,6 @@
 # /usr/bin/env bash
 
-PYTHON=pypy
+PYTHON=python
 THIS=`pwd`
 ROOT=$THIS/..
 NPLM_ROOT=$ROOT/nplm
@@ -9,7 +9,7 @@ DATA_ROOT=$ROOT/contrib
 # Training data
 TRAIN_SRC_TEXT=$DATA_ROOT/train.de.txt
 TRAIN_TRG_TEXT=$DATA_ROOT/train.de.txt
-TRAIN_ALIGNMENT=$DATA_ROOT/train.a3.txt
+TRAIN_ALIGNMENT=$DATA_ROOT/train.de-en.a3.txt
 
 # Development data
 DEV_SRC_TEXT=$DATA_ROOT/train.de.txt

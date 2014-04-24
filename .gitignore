@@ -97,3 +97,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+nnsmt/*.so
+nnsmt/*.c
+

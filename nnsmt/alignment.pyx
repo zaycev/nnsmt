@@ -10,10 +10,23 @@ import logging
 import argparse
 import itertools
 
-import alignment
+class AffilationHeuristicAligner(object):
+    """
+    """
+    
+    def __ini__(self):
+        pass
+
+
+def iter_train_data(source_sents_fl, target_sents_fl, a3_fl):
+    for s_line, t_line, a_line in itertools.izip(source_sents_fl, target_sents_fl, a3_fl):
+        source = s_line.rstrip().split()
+        target = s_line.rstrip().split()
+        alignment = [(int(a_s), int(a_t)) for a_s,a_t in [a.split("-") for a in a_line.rstrip().split()]]
+        yield source, target, alignment
 
 HEURISCICS = {
-    "affiliation": alignment.AffilationHeuristicAligner
+    "affiliation": AffilationHeuristicAligner
 }
 
 DEFAULT_HEURISTIC = HEURISCICS.keys()[0]
@@ -38,13 +51,13 @@ if __name__ == "__main__":
     s_file = open(arguments.source_text, "rb")
     t_file = open(arguments.target_text, "rb")
     a_file = open(arguments.alignment,   "rb")
-    train_data = alignment.iter_train_data(s_file, t_file, a_file)
+    train_data = iter_train_data(s_file, t_file, a_file)
 
     heuristic = HEURISCICS.get(arguments.heuristic)()
 
     for i, (source, target, alignment) in enumerate(train_data):
         
-        # print source
+        print source
         
         if i % 10000 == 0:
             logging.info("Processed %d lines." % i)
