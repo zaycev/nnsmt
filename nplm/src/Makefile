@@ -1,12 +1,12 @@
 ### Compilation options.
 
 # C++ compiler. Tested with g++ and Intel icpc.
-CXX=g++
+CXX=/usr/local/Cellar/gcc49/4.9.0rc1/bin/c++-4.9
 #CXX=icpc
-# /usr/local/Cellar/gcc49/4.9.0rc1
+
 # Compiler options. Note that -DEIGEN_NO_DEBUG is essential for good performance!
-#CFLAGS=-g
-CFLAGS=-O3 -DEIGEN_NO_DEBUG -DNDEBUG 
+# CFLAGS=-g
+CFLAGS=-O3 -DEIGEN_NO_DEBUG -DNDEBUG -I/usr/local/Cellar/python/2.7.6_1/Frameworks/Python.framework/Versions/Current/include/python2.7
 
 # Architecture. Set to x86_64 or i686 to override.
 ARCH:=$(shell uname -m)
@@ -26,8 +26,7 @@ BOOST=/usr/local/Cellar/boost/1.55.0_1
 BOOST_INC=$(BOOST)/include
 
 # Set this to the root directory of Eigen (should have a subdirectory named Eigen):
-EIGEN=/usr/local/Cellar/eigen/3.2.1
-
+EIGEN=/usr/local/Cellar/eigen/3.2.1/include/eigen3
 ### Optional libraries.
 
 # To disable multithreading, comment out the line below:
@@ -166,7 +165,7 @@ neuralLM.so: $(addprefix shared/,neuralLM.o $(OBJS))
 	$(CXX) -shared $(ALL_LDFLAGS) $^ $(ALL_LDLIBS) -o $@
 
 python/nplm.cpp: python/nplm.pyx
-	$(CYTHON) --cplus $^
+	$(CYTHON) -I --cplus $^
 
 python/nplm.o: python/nplm.cpp
 	$(CXX) -c -fPIC -I. $(ALL_CFLAGS) $(PYTHON_CFLAGS) $< -o $@
