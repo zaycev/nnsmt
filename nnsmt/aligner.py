@@ -71,8 +71,8 @@ if __name__ == "__main__":
             )
             continue
         
-        target_s = " ".join(source)
-        source_s = " ".join(target)
+        target_s = " ".join(target)
+        source_s = " ".join(source)
         alignment_s = " ".join(["%d-%d" % a for a in pp_aligment])
         sys.stdout.write("%s ||| %s ||| %s\n" % (source_s, target_s,  alignment_s))
         
