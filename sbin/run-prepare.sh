@@ -7,18 +7,17 @@ $ROOT/build/bin/prepareNeuralLM                     \
     --numberize 1                                   \
     --train_text $TRAIN_SRC_TEXT                    \
     --ngram_size 1                                  \
-    --vocab_size 5000                               \
+    --vocab_size 50000                              \
     --validation_size 0                             \
     --write_words_file $WORK_DIR/source.vocab.txt   \
     --add_start_stop 0                              \
     --train_file /dev/null
 
-
 $ROOT/build/bin/prepareNeuralLM                     \
     --numberize 1                                   \
     --train_text $TRAIN_TRG_TEXT                    \
     --ngram_size 1                                  \
-    --vocab_size 5000                               \
+    --vocab_size 50000                              \
     --validation_size 0                             \
     --write_words_file $WORK_DIR/target.vocab.txt   \
     --add_start_stop 0                              \
@@ -26,7 +25,7 @@ $ROOT/build/bin/prepareNeuralLM                     \
 
 $PYTHON $ROOT/nnsmt/preparenplm.py                          \
     --input-data $WORK_DIR/pp-alignment.txt                 \
-    --target-vector-size 2                                  \
+    --target-vector-size 3                                  \
     --source-vector-size 3                                  \
     --source-vocab $WORK_DIR/source.vocab.txt               \
     --target-vocab $WORK_DIR/target.vocab.txt               \

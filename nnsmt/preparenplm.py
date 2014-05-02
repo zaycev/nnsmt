@@ -2,12 +2,7 @@
 # coding: utf-8
 # Author: Vova Zaytsev <zaytsev@usc.edu>
 
-"""This script modifies input word alignment according to the Affiliation heuristic:
-* If t_i aligns to exactly one source word, A_i is the index of the word it aligns to.
-* If t_i align to multiple source words, A_i is the index of the aligned word in the middle (round
-down).
-* If t_i is unaligned, we inherit its affiliation from the closest aligned word, starting with the right.
-"""
+""""""
 
 import sys
 import logging
@@ -77,9 +72,9 @@ if __name__ == "__main__":
             fl.write(word)
             fl.write("\n")
 
-    
+
     examples = []
-    
+
     with open(args.input_data, "rb") as i_fl:
         for lineno, line in enumerate(i_fl):
 
@@ -103,7 +98,7 @@ if __name__ == "__main__":
                         example_in.append(T_BEGIN)
                     else:
                         example_in.append(target[t_j])
-                
+
                 s_i = t_alignment[t_i]
                 for k_i in xrange(-k, k + 1):
                     s_j = s_i + k_i
@@ -113,7 +108,7 @@ if __name__ == "__main__":
                         example_in.append(S_END)
                     else:
                         example_in.append(source[s_j])
-                
+
                 examples.append([example_in, target[t_i]])
 
         logging.info("Sentence %d. Example extracted." % lineno)
@@ -125,7 +120,7 @@ if __name__ == "__main__":
             for j in xrange(len(example_in)):
                 if example_in[j] not in input_vocab:
                     example_in[j] = UNK
-            
+
 
         train_file = open(args.write_train_file, "wb")
         valid_file = open(args.write_valid_file, "wb")
@@ -133,14 +128,14 @@ if __name__ == "__main__":
         valid_w_file = open(args.write_valid_w_file, "wb")
 
         for i, (example_in, example_out) in enumerate(examples):
-            
-            if i % 10000 == 0:
+
+            if i % 100000 == 0:
                 logging.info("Write example %d." % i)
 
             input_w_ids = [str(input_vocab[w]) for w in example_in]
             output_w_id = str(output_vocab[example_out])
 
-            train_w_file.write("%s %s\n" % (" ".join(example_in), example_out))            
+            train_w_file.write("%s %s\n" % (" ".join(example_in), example_out))
             train_file.write("%s %s\n" % (" ".join(input_w_ids), output_w_id))
 
         logging.info("Write example %d." % i)
