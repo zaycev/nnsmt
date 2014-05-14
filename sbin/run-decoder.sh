@@ -14,12 +14,22 @@ export PYTHONPATH=$ROOT/build/python:$PYTHONPATH
 #     --source-vector-size 3                          \
 #     --target-vector-size 3
 
+MODEL=$ROOT/models/3t.3s.6j.3f.europarl.50ks.50kw
+
+
 $PYTHON $ROOT/nnsmt/zdec.py                     \
-    --t-model-fl $WORK_DIR/nplm.t/model.32      \
-    --d-model-fl $WORK_DIR/nplm.d/model.32      \
-    --i-vocab-fl $WORK_DIR/new.input.vocab.txt      \
-    --o-vocab-fl $WORK_DIR/new.output.vocab.txt     \
+    --t-model-fl $MODEL/t.nplm                  \
+    --d-model-fl $MODEL/d.nplm                  \
+    --f-model-fl $MODEL/f.nplm                  \
+    --i-vocab-fl $MODEL/input.vocab.txt         \
+    --o-t-vocab-fl $MODEL/output.t.vocab.txt    \
+    --o-d-vocab-fl $MODEL/output.d.vocab.txt    \
+    --o-f-vocab-fl $MODEL/output.f.vocab.txt    \
     --source-vector-size 3                      \
     --target-vector-size 3                      \
-    --observed-data $WORK_DIR/nplm.train.txt    \
-    < $TRAIN_SRC_TEXT
+    --observed-data $MODEL/observed.txt         \
+    --max-jump 3                                \
+    --max-fert 1                                \
+    --train-file  $MODEL/t.train.txt            \
+    --t-cache-size 10                           \
+    < $DEV_SRC_TEXT > ~/dev/translated.2.txt

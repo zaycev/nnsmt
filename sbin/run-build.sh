@@ -22,6 +22,6 @@ mv $NPLM_ROOT/src/python/nplm.pxd      $ROOT/build/python/
 mv $NPLM_ROOT/src/python/nplm.pyx      $ROOT/build/python/
 mv $NPLM_ROOT/src/python/nplm.so       $ROOT/build/python/
 
-cd $ROOT/nnsmt
-$PYTHON alignmentsetup.py build_ext --inplace
-$PYTHON decodingsetup.py build_ext --inplace
+# cd $ROOT/nnsmt
+# $PYTHON alignmentsetup.py build_ext --inplace
+# $PYTHON decodingsetup.py build_ext --inplace
