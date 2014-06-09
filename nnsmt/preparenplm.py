@@ -3,6 +3,11 @@
 # Author: Vova Zaytsev <zaytsev@usc.edu>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+""""""
+
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
 """"""
 
@@ -12,14 +17,20 @@ import logging
 import argparse
 import datetime
 <<<<<<< HEAD
+<<<<<<< HEAD
 import preparing
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
 S_BEGIN = "<S>"
 S_END   = "</S>"
 T_BEGIN = "<T>"
 T_END   = "</T>"
 UNK     = "<UNK>"
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
 if __name__ == "__main__":
@@ -28,13 +39,17 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
     argparser.add_argument("-i",    "--input-data",                 type=str)
     argparser.add_argument("-tv",   "--target-vocab",               type=str)
     argparser.add_argument("-sv",   "--source-vocab",               type=str)
     argparser.add_argument("-wi",   "--write-input-vocab-file",     type=str)
+<<<<<<< HEAD
 <<<<<<< HEAD
     argparser.add_argument("-wd",   "--write-output-j-vocab-file",  type=str)
     argparser.add_argument("-wf",   "--write-output-f-vocab-file",  type=str)
@@ -63,6 +78,8 @@ if __name__ == "__main__":
     argparser.add_argument("-mj",   "--max-jump-size",              type=int)
     argparser.add_argument("-mf",   "--max-fertility",              type=int)
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
     argparser.add_argument("-wo",   "--write-output-vocab-file",    type=str)
     argparser.add_argument("-tf",   "--write-train-file",           type=str)
     argparser.add_argument("-vf",   "--write-valid-file",           type=str)
@@ -71,6 +88,9 @@ if __name__ == "__main__":
     argparser.add_argument("-n",    "--target-vector-size",         type=int)
     argparser.add_argument("-m",    "--source-vector-size",         type=int)
     argparser.add_argument("-vs",   "--valid-data-size",            type=int)
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
     argparser.add_argument("-v",    "--verbosity-level",            type=int,
                                                                     default=1,
@@ -86,6 +106,7 @@ if __name__ == "__main__":
     k = m / 2
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     input_vocab, output_vocab = preparing.create_vocabularies(
         args.source_vocab,
         args.target_vocab,
@@ -100,6 +121,8 @@ if __name__ == "__main__":
     valid_data = ([], [], [])
 
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
     with open(args.source_vocab, "rb") as fl:
         source_vocab = [S_BEGIN, S_END, UNK] \
@@ -129,11 +152,15 @@ if __name__ == "__main__":
 
 
     examples = []
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
     with open(args.input_data, "rb") as i_fl:
         for lineno, line in enumerate(i_fl):
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             if lineno < args.valid_data_size:
                 t_model_examples, d_model_examples, f_model_examples = valid_data
@@ -146,12 +173,17 @@ if __name__ == "__main__":
             if lineno % 10000 == 0:
                 logging.info("Sentence %d. Example extracted." % lineno)
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
+            if lineno % 10000 == 0:
+                logging.info("Sentence %d. Example extracted." % lineno)
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
             source, target, alignment = line.rstrip().split(" ||| ")
             source = ["S_" + w for w in source.split()]
             target = ["T_" + w for w in target.split()]
             alignment = [(int(a_s),int(a_t)) for a_s, a_t in
                          [a.split("-") for a in alignment.split()]]
+<<<<<<< HEAD
 <<<<<<< HEAD
             t_alignment = {a_t:a_s for a_s, a_t in alignment}
             t_alignment[-1] = -1
@@ -190,6 +222,8 @@ if __name__ == "__main__":
                     else:
                         t_history.append(target[t_j])
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
             t_alignment = [a_s for a_s, a_t in alignment]
 
@@ -203,11 +237,15 @@ if __name__ == "__main__":
                     else:
                         example_in.append(target[t_j])
 
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                 s_i = t_alignment[t_i]
                 for k_i in xrange(-k, k + 1):
                     s_j = s_i + k_i
                     if s_j < 0:
+<<<<<<< HEAD
 <<<<<<< HEAD
                         s_window.append(preparing.S_BEGIN)
                     elif s_j >= len(source):
@@ -291,6 +329,8 @@ if __name__ == "__main__":
             input_vocab,
             fert_vocab)
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                         example_in.append(S_BEGIN)
                     elif s_j >= len(source):
                         example_in.append(S_END)
@@ -328,5 +368,8 @@ if __name__ == "__main__":
 
         logging.info("Write example %d." % i)
 
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 

@@ -5,6 +5,7 @@ source run-env.sh
 export PYTHONPATH=$ROOT/build/python:$PYTHONPATH
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 $PYTHON $ROOT/nnsmt/vocabtest.py                    \
     --i-vocab-fl $WORK_DIR/input.vocab.txt          \
     --o-vocab-fl $WORK_DIR/output.vocab.txt         \
@@ -35,6 +36,8 @@ $PYTHON $ROOT/nnsmt/zdec.py                     \
     --t-cache-size 16                           \
     < $TEST_SRC_TEXT > /dev/stdout
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 # $PYTHON $ROOT/nnsmt/vocabtest.py                    \
 #     --i-vocab-fl $WORK_DIR/input.vocab.txt          \
 #     --o-vocab-fl $WORK_DIR/output.vocab.txt         \
@@ -54,4 +57,7 @@ $PYTHON $ROOT/nnsmt/zdec.py                     \
     --target-vector-size 3                      \
     --observed-data $WORK_DIR/nplm.train.txt    \
     < $TRAIN_SRC_TEXT
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01

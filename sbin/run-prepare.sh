@@ -24,6 +24,7 @@ $ROOT/build/bin/prepareNeuralLM                     \
     --train_file /dev/null
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 pypy $ROOT/nnsmt/preparenplm.py                                 \
     --input-data $WORK_DIR/pp-alignment.txt                     \
     --target-vector-size 3                                      \
@@ -50,6 +51,8 @@ pypy $ROOT/nnsmt/preparenplm.py                                 \
     --max-fertility 3                                           \
     --valid-data-size 5000
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 $PYTHON $ROOT/nnsmt/preparenplm.py                          \
     --input-data $WORK_DIR/pp-alignment.txt                 \
     --target-vector-size 3                                  \
@@ -63,5 +66,8 @@ $PYTHON $ROOT/nnsmt/preparenplm.py                          \
     --write-train-w-file $WORK_DIR/nplm.w.train.txt         \
     --write-valid-w-file $WORK_DIR/nplm.w.valid.txt         \
     --valid-data-size 0
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 

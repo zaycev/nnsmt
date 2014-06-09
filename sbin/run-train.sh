@@ -3,6 +3,7 @@
 source run-env.sh
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Train T-model
 M=t
 $ROOT/build/bin/trainNeuralNetwork                      \
@@ -64,6 +65,8 @@ $ROOT/build/bin/trainNeuralNetwork                      \
 
 sleep 100h
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 $ROOT/build/bin/trainNeuralNetwork                  \
     --train_file $WORK_DIR/nplm.train.txt           \
     --num_epochs 32                                 \
@@ -77,5 +80,9 @@ $ROOT/build/bin/trainNeuralNetwork                  \
     --embedding_dimension 150                       \
     --num_threads 4                                 \
     --num_noise_samples 100                         \
+<<<<<<< HEAD
+    --minibatch_size 1000
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
     --minibatch_size 1000
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01

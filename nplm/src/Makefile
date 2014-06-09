@@ -2,7 +2,11 @@
 
 # C++ compiler. Tested with g++ and Intel icpc.
 <<<<<<< HEAD
+<<<<<<< HEAD
 CXX=/usr/local/Cellar/gcc49/4.9.0/bin/c++-4.9
+=======
+CXX=/usr/local/Cellar/gcc49/4.9.0rc1/bin/c++-4.9
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
 CXX=/usr/local/Cellar/gcc49/4.9.0rc1/bin/c++-4.9
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
@@ -176,7 +180,11 @@ python/nplm.o: python/nplm.cpp
 
 python/nplm.so: python/nplm.o $(addprefix shared/,neuralLM.o $(OBJS))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@
+=======
+	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@ 
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
 	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@ 
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01

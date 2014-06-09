@@ -5,6 +5,7 @@ import nplm
 import logging
 import itertools
 <<<<<<< HEAD
+<<<<<<< HEAD
 import preparing
 import numpy as np
 import collections
@@ -16,11 +17,17 @@ import numpy as np
 import Queue as queue
 
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
+import numpy as np
+import Queue as queue
+
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 class State(object):
 
     def __init__(self,
         translated=None,
         s_i=None,
+<<<<<<< HEAD
 <<<<<<< HEAD
         prev_state=None,
         cover=None,
@@ -40,6 +47,8 @@ class State(object):
     def total_score(self):
         return self.t_score + self.d_score + self.f_score
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         score=None,
         prev_state=None,
         cover=None,
@@ -50,6 +59,9 @@ class State(object):
         self.cover = cover
         self.s_i = s_i
         self.jump = 0
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
     def is_final(self):
@@ -57,11 +69,16 @@ class State(object):
 
     def repr(self, depth):
 <<<<<<< HEAD
+<<<<<<< HEAD
         return "<State(score=%.3f[%.3f;%.3f;%.3f] T='%s' s_i=%d jump=%d cover=%s p=\n%s%s)>" % (
             self.total_score(),
             self.t_score,
             self.d_score,
             self.f_score,
+=======
+        return "<State(score=%.3f T='%s' s_i=%d jump=%d cover=%s p=\n%s%s)>" % (
+            self.score,
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
         return "<State(score=%.3f T='%s' s_i=%d jump=%d cover=%s p=\n%s%s)>" % (
             self.score,
@@ -86,6 +103,7 @@ class ZDecoder(object):
         self.f_model = None
         self.s_size = None
         self.t_size = None
+<<<<<<< HEAD
 <<<<<<< HEAD
         self.max_jump = None
         self.max_fert = None
@@ -125,6 +143,8 @@ class ZDecoder(object):
             new_t_history = state.translated[:(self.t_size-1)]
             new_t_history_ids = [self.i_vocab_w2id.get(t_w, self.i_vocab_w2id["<T_UNK>"]) for t_w in new_t_history]
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         self.i_vocab_w2id = None
         self.i_vocab_id2w = None
         self.o_vocab_w2id = None
@@ -154,6 +174,9 @@ class ZDecoder(object):
             new_t_history = state.translated[:(self.t_size-1)]
             new_t_history_ids = [self.i_vocab_w2id[t_w] for t_w in new_t_history]
 
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             new_s_context = []
             for s_k in xrange(new_s_i-self.k, new_s_i+self.k+1):
@@ -164,6 +187,7 @@ class ZDecoder(object):
                 else:
                     s_w = aug_source[s_k]
                 new_s_context.append(s_w)
+<<<<<<< HEAD
 <<<<<<< HEAD
             new_s_context_ids = [self.i_vocab_w2id.get(s_w, self.i_vocab_w2id["<S_UNK>"]) for s_w in new_s_context]
             # print new_t_history_ids
@@ -219,6 +243,8 @@ class ZDecoder(object):
                 # print new_translated, t_score, "=>", new_t_score, total_raw_t_score
 
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             new_s_context_ids = [self.i_vocab_w2id[w] for w in new_s_context]
 
             # print new_t_history_ids
@@ -249,11 +275,15 @@ class ZDecoder(object):
                 new_translated = [self.o_vocab_id2w[t_id]] + state.translated
                 new_cover = np.array(state.cover, copy=True)
                 new_cover[new_s_i] += 1
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                 new_state = State(
                     prev_state=state,
                     translated=new_translated,
                     s_i=new_s_i,
+<<<<<<< HEAD
 <<<<<<< HEAD
                     cover=new_cover,
                     jump=jump,
@@ -348,6 +378,8 @@ class ZDecoder(object):
 
     def decode(self, source, beam_n=100):
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                     score=new_score,
                     cover=new_cover,
                     jump=jump
@@ -367,11 +399,15 @@ class ZDecoder(object):
 
 
     def decode(self, source):
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
         self.k = self.s_size / 2
 
         aug_source = ["<S>"] + ["S_" + s for s in source] + ["</S>"]
+<<<<<<< HEAD
 <<<<<<< HEAD
         aug_source_ids = [self.i_vocab_w2id.get(w, self.i_vocab_w2id["<S_UNK>"]) for w in aug_source]
 
@@ -384,6 +420,8 @@ class ZDecoder(object):
 
         s_contexts, s_contexts_ids = self.precompute_s_contexts(aug_source)
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         aug_source_ids = [self.i_vocab_w2id[w] for w in aug_source]
 
         translated = ["<T>" for _ in xrange(self.t_size)]
@@ -391,11 +429,15 @@ class ZDecoder(object):
         cover[0] = 2
 
         print aug_source
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
         initial = State(
             prev_state=None,
             translated=translated,
+<<<<<<< HEAD
 <<<<<<< HEAD
             s_i=0,
             cover=cover,
@@ -404,10 +446,15 @@ class ZDecoder(object):
             d_score=0,
             f_score=0,
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             s_i= 0,
             score=0.0,
             cover=cover,
             jump=0
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         )
 
@@ -415,6 +462,7 @@ class ZDecoder(object):
         leaves = []
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         iteration = 1
         while len(expanded) > 0:
@@ -424,12 +472,20 @@ class ZDecoder(object):
 
         while len(expanded) > 0:
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
+
+        while len(expanded) > 0:
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
             new_expanded = []
 
             for state in expanded:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 for new_state in self.expand(state, aug_source, aug_source_ids, s_contexts, s_contexts_ids):
+=======
+                for new_state in self.expand(state, aug_source, aug_source_ids):
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
                 for new_state in self.expand(state, aug_source, aug_source_ids):
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
@@ -437,6 +493,7 @@ class ZDecoder(object):
                         leaves.append(new_state)
                     new_expanded.append(new_state)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
             stacks = {}
@@ -529,6 +586,8 @@ class ZDecoder(object):
         for s, t_words in observed.items():
             observed[s] = set([w for w,_ in t_words.most_common(t_cache_size)])
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             expanded = new_expanded
 
         leaves.sort(key=lambda state: state.score)
@@ -557,6 +616,9 @@ class ZDecoder(object):
                     observed[context] = {t}
                 else:
                     observed[context].add(t)
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         zdec.observed = observed
 
@@ -565,6 +627,7 @@ class ZDecoder(object):
         t_model.read(t_model_fl)
 
         logging.info("D-Model:      %s" % d_model_fl)
+<<<<<<< HEAD
 <<<<<<< HEAD
         d_model = nplm.NeuralLM()
         d_model.read(d_model_fl)
@@ -593,6 +656,8 @@ class ZDecoder(object):
         zdec.d_model = d_model
         zdec.f_model = f_model
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         # TODO
 
         logging.info("F-Model:      %s" % f_model_fl)
@@ -609,11 +674,15 @@ class ZDecoder(object):
         zdec.t_model = t_model
         zdec.d_model = None
         zdec.f_model = None
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         zdec.s_size = s_size
         zdec.t_size = t_size
         zdec.i_vocab_w2id = i_vocab_w2id
         zdec.i_vocab_id2w = i_vocab_id2w
+<<<<<<< HEAD
 <<<<<<< HEAD
         zdec.o_t_vocab_w2id = o_t_vocab_w2id
         zdec.o_t_vocab_id2w = o_t_vocab_id2w
@@ -626,6 +695,10 @@ class ZDecoder(object):
         zdec.t_weight = t_weight
         zdec.d_weight = d_weight
         zdec.f_weight = f_weight
+=======
+        zdec.o_vocab_w2id = o_vocab_w2id
+        zdec.o_vocab_id2w = o_vocab_id2w
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
         zdec.o_vocab_w2id = o_vocab_w2id
         zdec.o_vocab_id2w = o_vocab_id2w
@@ -643,6 +716,7 @@ class ZDecoder(object):
         for w_id in s_context:
             decoded.append(self.i_vocab_id2w[w_id])
 <<<<<<< HEAD
+<<<<<<< HEAD
         decoded.append(self.o_t_vocab_id2w[t])
         return decoded
 
@@ -650,12 +724,17 @@ class ZDecoder(object):
 
         t_words = u"i live".decode("utf-8").split()
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         decoded.append(self.o_vocab_id2w[t])
         return decoded
 
     def self_test(self, k=32, observed_fl=None):
 
         t_words = u"man house glass book".decode("utf-8").split()
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         aug_t_words = ["T_" + t for t in t_words]
 
@@ -677,7 +756,11 @@ class ZDecoder(object):
 
             for t in aug_t_words:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 t_id = self.o_t_vocab_w2id[t]
+=======
+                t_id = self.o_vocab_w2id[t]
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
                 t_id = self.o_vocab_w2id[t]
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
@@ -707,7 +790,10 @@ class ZDecoder(object):
                 for score, translation in best:
                     print score, t, "=>", translation
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
 
 def load_vocab_file(file_path):
@@ -716,4 +802,7 @@ def load_vocab_file(file_path):
         vocab_w2id = {w:w_id for w_id,w in vocab_id2w.iteritems()}
         logging.info("Loaded %d tokens" % len(vocab_id2w))
     return vocab_id2w, vocab_w2id
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01

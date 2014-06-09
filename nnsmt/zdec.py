@@ -9,8 +9,11 @@ import datetime
 import decoding
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 sys.path.append("/Users/zvm/code/nnsmt/build/python")
 
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 =======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 if __name__ == "__main__":
@@ -19,6 +22,7 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     argparser.add_argument("--t-model-fl",          type=str)
     argparser.add_argument("--d-model-fl",          type=str)
@@ -38,6 +42,8 @@ if __name__ == "__main__":
                                                     default=1,
                                                     choices=(0, 1, 2))
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
     argparser.add_argument("-t",    "--t-model-fl",                 type=str)
     argparser.add_argument("-d",    "--d-model-fl",                 type=str)
     argparser.add_argument("-f",    "--f-model-fl",                 type=str)
@@ -49,6 +55,9 @@ if __name__ == "__main__":
     argparser.add_argument("-v",    "--verbosity-level",            type=int,
                                                                     default=1,
                                                                     choices=(0, 1, 2))
+<<<<<<< HEAD
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
     args = argparser.parse_args()
 
@@ -59,6 +68,7 @@ if __name__ == "__main__":
                                   d_model_fl=args.d_model_fl,
                                   f_model_fl=args.f_model_fl,
                                   i_vocab_fl=args.i_vocab_fl,
+<<<<<<< HEAD
 <<<<<<< HEAD
                                   o_t_vocab_fl=args.o_t_vocab_fl,
                                   o_d_vocab_fl=args.o_d_vocab_fl,
@@ -82,6 +92,8 @@ if __name__ == "__main__":
         score, target = zdec.decode(source, beam_n=100)
         print "%d %.8f %s" % (i, score, " ".join(target))
 =======
+=======
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                                   o_vocab_fl=args.o_vocab_fl,
                                   s_size=args.source_vector_size,
                                   t_size=args.target_vector_size,
@@ -96,5 +108,9 @@ if __name__ == "__main__":
     #     source = line.split()
     #     target = zdec.decode(source)
     #     # print source, target
+<<<<<<< HEAD
+    #     break
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
+=======
     #     break
 >>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
