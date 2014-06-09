@@ -256,7 +256,7 @@ class ZDecoder(object):
 
         return total_trans_fert_score
 
-    def decode(self, source, beam_n=16):
+    def decode(self, source, beam_n=100):
 
         self.k = self.s_size / 2
 
@@ -326,10 +326,10 @@ class ZDecoder(object):
             # expanded = expanded[:beam_n]
 
             expanded.sort(key=lambda s: -s.total_score())
-            # for s in expanded:
-            #     cover_str = "".join(map(str, s.cover))
-            #     trans_str = " ".join(list(reversed(s.translated))[3:])
-            #     logging.info("%f %s:  '%s'" % (s.total_score(), cover_str, trans_str))
+            for s in expanded:
+                cover_str = "".join(map(str, s.cover))
+                trans_str = " ".join(list(reversed(s.translated))[3:])
+                logging.info("%f %s:  '%s'" % (s.total_score(), cover_str, trans_str))
 
         leaves.sort(key=lambda s: -s.total_score())
 

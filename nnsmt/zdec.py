@@ -58,20 +58,8 @@ if __name__ == "__main__":
     # zdec.self_test(32, args.train_file)
     # exit(0)
 
-    # target = zdec.decode("mein haus".split())
-    # target = zdec.decode(u"lassen sie mich noch etwas hinzufügen .".encode("utf-8").split(), beam_n=32)
-    # target = zdec.decode("ich wohne in diesem haus".split())
-    # target = zdec.decode("das ist mein haus , ich lebe dort".split())
-    # exit(0)
-    for line in sys.stdin:
+    for i, line in enumerate(sys.stdin):
         line = line.rstrip()
         source = line.split()
-        # print source
-        try:
-            score, target = zdec.decode(source, beam_n=16)
-            # print source
-            # target
-            logging.info("%r => %r" % (source, target))
-            print "%.8f %s" % (score, " ".join(target))
-        except:
-            print -1
+        score, target = zdec.decode(source, beam_n=100)
+        print "%d %.8f %s" % (i, score, " ".join(target))
