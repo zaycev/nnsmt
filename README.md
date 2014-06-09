@@ -221,12 +221,12 @@ nplm.pyx
 nplm.so
 ```
 
-Run decoder:
+Run Z-decoder:
 
 ```
 cd ./sbin
 source run-env.sh
-
+export PYTHONPATH=$ROOT/build/python:$PYTHONPATH
 $PYTHON $ROOT/nnsmt/zdec.py                             \
     --t-model-fl $WORK_DIR/nplm/t.model/model.32        \
     --d-model-fl $WORK_DIR/nplm/d.model/model.32        \
