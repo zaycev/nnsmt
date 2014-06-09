@@ -134,13 +134,84 @@ pypy $ROOT/nnsmt/preparenplm.py                                 \
 Here we use `prepareNeuralLM` application to extract vocabularies of needed size and then use `preparenplm.py` to create train and validation data for NPLM (12 files in total, 2 train and 2 validation files for every model).
 
 * `source.vocab.txt` and `target.vocab.txt` - original target and source vocabularies.
-* `input.vocab.txt` and `input.vocab.txt` - NPLM input and output vocabularies. Input is a union of the original target and source files and output is just target vocabulary (plust some special null/start/end/...etc words).
+* `input.vocab.txt` and `output.vocab.txt` - NPLM input and output vocabularies. Input is a union of the original target and source files and output is just target vocabulary (plus some special null/start/end/...etc words).
 * `write-[t,d,f]-train-file` - train files for translation, distortion and fertlity model. They contain training examples consisting of word IDs. 
 * `write-[t,d,f]-train-w-file` - the same as the previous files, but contain words instead of their IDs (for debugging purposes only).
 
-### 3. Decoding
+### 3. Train NPLMs
 
-The design of the decoder would be very similar to a phrase-based decoder, except that we only generate a single English word at a time.
+Use NPLM to train models:
+
+```
+./sbin/run-train.sh
+```
+
+Or:
+
+```
+cd ./sbin/
+source run-env.sh
+# Train T-model
+M=t
+$ROOT/build/bin/trainNeuralNetwork                      \
+    --train_file $WORK_DIR/nplm/$M.train.txt            \
+    --validation_file $WORK_DIR/nplm/$M.valid.txt       \
+    --num_epochs 32                                     \
+    --input_words_file $WORK_DIR/input.vocab.txt        \
+    --output_words_file $WORK_DIR/output.$M.vocab.txt   \
+    --model_prefix  $WORK_DIR/nplm/$M.model/model       \
+    --learning_rate 1                                   \
+    --num_hidden 750                                    \
+    --input_embedding_dimension 150                     \
+    --output_embedding_dimension 150                    \
+    --embedding_dimension 150                           \
+    --num_threads 4                                     \
+    --num_noise_samples 100                             \
+    --minibatch_size 1000                               \
+    --validation_minibatch_size 1000&
+
+
+# Train D-model
+M=d
+$ROOT/build/bin/trainNeuralNetwork                      \
+    --train_file $WORK_DIR/nplm/$M.train.txt            \
+    --validation_file $WORK_DIR/nplm/$M.valid.txt       \
+    --num_epochs 32                                     \
+    --input_words_file $WORK_DIR/input.vocab.txt        \
+    --output_words_file $WORK_DIR/output.$M.vocab.txt   \
+    --model_prefix  $WORK_DIR/nplm/$M.model/model       \
+    --learning_rate 1                                   \
+    --num_hidden 750                                    \
+    --input_embedding_dimension 150                     \
+    --output_embedding_dimension 150                    \
+    --embedding_dimension 150                           \
+    --num_threads 4                                     \
+    --num_noise_samples 100                             \
+    --minibatch_size 1000                               \
+    --validation_minibatch_size 1000&
+
+
+# Train F-model
+M=f
+$ROOT/build/bin/trainNeuralNetwork                      \
+    --train_file $WORK_DIR/nplm/$M.train.txt            \
+    --validation_file $WORK_DIR/nplm/$M.valid.txt       \
+    --num_epochs 32                                     \
+    --input_words_file $WORK_DIR/input.vocab.txt        \
+    --output_words_file $WORK_DIR/output.$M.vocab.txt   \
+    --model_prefix  $WORK_DIR/nplm/$M.model/model       \
+    --learning_rate 1                                   \
+    --num_hidden 750                                    \
+    --input_embedding_dimension 150                     \
+    --output_embedding_dimension 150                    \
+    --embedding_dimension 150                           \
+    --num_threads 4                                     \
+    --num_noise_samples 100                             \
+    --minibatch_size 1000                               \
+    --validation_minibatch_size 1000&
+```
+
+### Try decoder
 
 ### Related Links
 
