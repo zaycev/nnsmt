@@ -246,6 +246,9 @@ $PYTHON $ROOT/nnsmt/zdec.py                             \
 
 ```
 
+This will take couple of days to process sample input file. The result will be printed to stdout.
+
+
 ### Related Links
 
 1. N. Durrani, A. Fraser, H. Schmid. 2013. [Model With Minimal Translation Units, But DecodeWith Phrases](http://www.cis.uni-muenchen.de/~fraser/pubs/durrani_naacl2013.pdf)
