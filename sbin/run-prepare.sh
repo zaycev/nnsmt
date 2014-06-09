@@ -23,8 +23,6 @@ $ROOT/build/bin/prepareNeuralLM                     \
     --add_start_stop 0                              \
     --train_file /dev/null
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 pypy $ROOT/nnsmt/preparenplm.py                                 \
     --input-data $WORK_DIR/pp-alignment.txt                     \
     --target-vector-size 3                                      \
@@ -50,24 +48,4 @@ pypy $ROOT/nnsmt/preparenplm.py                                 \
     --max-jump-size 6                                           \
     --max-fertility 3                                           \
     --valid-data-size 5000
-=======
-=======
->>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
-$PYTHON $ROOT/nnsmt/preparenplm.py                          \
-    --input-data $WORK_DIR/pp-alignment.txt                 \
-    --target-vector-size 3                                  \
-    --source-vector-size 3                                  \
-    --source-vocab $WORK_DIR/source.vocab.txt               \
-    --target-vocab $WORK_DIR/target.vocab.txt               \
-    --write-input-vocab-file $WORK_DIR/input.vocab.txt      \
-    --write-output-vocab-file $WORK_DIR/output.vocab.txt    \
-    --write-train-file $WORK_DIR/nplm.train.txt             \
-    --write-valid-file $WORK_DIR/nplm.valid.txt             \
-    --write-train-w-file $WORK_DIR/nplm.w.train.txt         \
-    --write-valid-w-file $WORK_DIR/nplm.w.valid.txt         \
-    --valid-data-size 0
-<<<<<<< HEAD
->>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
-=======
->>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
