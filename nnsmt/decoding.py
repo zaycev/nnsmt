@@ -4,17 +4,24 @@
 import nplm
 import logging
 import itertools
+<<<<<<< HEAD
 import preparing
 import numpy as np
 import collections
 import Queue as queue
 
 
+=======
+import numpy as np
+import Queue as queue
+
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 class State(object):
 
     def __init__(self,
         translated=None,
         s_i=None,
+<<<<<<< HEAD
         prev_state=None,
         cover=None,
         jump=None,
@@ -32,16 +39,33 @@ class State(object):
 
     def total_score(self):
         return self.t_score + self.d_score + self.f_score
+=======
+        score=None,
+        prev_state=None,
+        cover=None,
+        jump=None):
+        self.translated = translated
+        self.score = score
+        self.prev_state = prev_state
+        self.cover = cover
+        self.s_i = s_i
+        self.jump = 0
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
     def is_final(self):
         return np.count_nonzero(self.cover) == len(self.cover)
 
     def repr(self, depth):
+<<<<<<< HEAD
         return "<State(score=%.3f[%.3f;%.3f;%.3f] T='%s' s_i=%d jump=%d cover=%s p=\n%s%s)>" % (
             self.total_score(),
             self.t_score,
             self.d_score,
             self.f_score,
+=======
+        return "<State(score=%.3f T='%s' s_i=%d jump=%d cover=%s p=\n%s%s)>" % (
+            self.score,
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             "START" if self.prev_state is None else self.translated,
             self.s_i,
             self.jump,
@@ -62,6 +86,7 @@ class ZDecoder(object):
         self.f_model = None
         self.s_size = None
         self.t_size = None
+<<<<<<< HEAD
         self.max_jump = None
         self.max_fert = None
         self.i_vocab_w2id = None
@@ -99,6 +124,37 @@ class ZDecoder(object):
             new_cover[new_s_i] += 1
             new_t_history = state.translated[:(self.t_size-1)]
             new_t_history_ids = [self.i_vocab_w2id.get(t_w, self.i_vocab_w2id["<T_UNK>"]) for t_w in new_t_history]
+=======
+        self.i_vocab_w2id = None
+        self.i_vocab_id2w = None
+        self.o_vocab_w2id = None
+        self.o_vocab_id2w = None
+        self.k = None
+        self.observed = None
+        self.j_model = {
+            -3: -2.5,
+            -2: -2.0,
+            -1: -1.5,
+             0: -2.0,
+            +1: -1.0,
+            +2: -1.5,
+            +3: -2.5,
+        }
+
+    def expand(self, state, aug_source, aug_source_ids):
+
+        new_states = []
+        for jump in xrange(-3, 4):
+
+            new_s_i = state.s_i + jump
+
+            if new_s_i < 0 or new_s_i >= len(state.cover) or state.cover[new_s_i] == 2:
+                continue
+
+            new_t_history = state.translated[:(self.t_size-1)]
+            new_t_history_ids = [self.i_vocab_w2id[t_w] for t_w in new_t_history]
+
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
             new_s_context = []
             for s_k in xrange(new_s_i-self.k, new_s_i+self.k+1):
                 if s_k == -1:
@@ -108,6 +164,7 @@ class ZDecoder(object):
                 else:
                     s_w = aug_source[s_k]
                 new_s_context.append(s_w)
+<<<<<<< HEAD
             new_s_context_ids = [self.i_vocab_w2id.get(s_w, self.i_vocab_w2id["<S_UNK>"]) for s_w in new_s_context]
             # print new_t_history_ids
             # print new_s_context_ids
@@ -161,10 +218,43 @@ class ZDecoder(object):
 
                 # print new_translated, t_score, "=>", new_t_score, total_raw_t_score
 
+=======
+            new_s_context_ids = [self.i_vocab_w2id[w] for w in new_s_context]
+
+            # print new_t_history_ids
+            # print new_s_context_ids
+
+            context = tuple(new_s_context_ids)
+
+            translation_context = new_t_history_ids + new_s_context_ids + [None]
+
+            # if context not in self.observed:
+            #     # print
+            #     # print "New T history", new_t_history, new_t_history_ids
+            #     # print "New S context", new_s_context, new_s_context_ids
+            #     # print "New state", state
+            #     # print "Context", context
+            #     # print "Context words", [self.i_vocab_id2w[w_id] for w_id in context]
+            #     # print
+            #     continue
+
+            # for t_id in self.observed[context]:
+            for t_id in self.o_vocab_id2w.iterkeys():
+
+                translation_context[-1] = t_id
+                t_score = self.t_model.lookup_ngram(translation_context)
+
+                new_score = state.score + t_score
+
+                new_translated = [self.o_vocab_id2w[t_id]] + state.translated
+                new_cover = np.array(state.cover, copy=True)
+                new_cover[new_s_i] += 1
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                 new_state = State(
                     prev_state=state,
                     translated=new_translated,
                     s_i=new_s_i,
+<<<<<<< HEAD
                     cover=new_cover,
                     jump=jump,
                     t_score=state.t_score + new_t_score,
@@ -257,10 +347,32 @@ class ZDecoder(object):
         return total_trans_fert_score
 
     def decode(self, source, beam_n=100):
+=======
+                    score=new_score,
+                    cover=new_cover,
+                    jump=jump
+                )
+                new_states.append((new_state.score, new_state))
+
+        print "Expanded %d new states." % len(new_states)
+
+        new_states.sort(key=lambda x: x[0])
+
+        return (state for _, state in new_states[:16])
+
+
+
+
+
+
+
+    def decode(self, source):
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
         self.k = self.s_size / 2
 
         aug_source = ["<S>"] + ["S_" + s for s in source] + ["</S>"]
+<<<<<<< HEAD
         aug_source_ids = [self.i_vocab_w2id.get(w, self.i_vocab_w2id["<S_UNK>"]) for w in aug_source]
 
         translated = ["<T>" for _ in xrange(self.t_size)]
@@ -271,35 +383,61 @@ class ZDecoder(object):
         # print self.compute_fert_score(cover, s_contexts, s_contexts_ids)
 
         s_contexts, s_contexts_ids = self.precompute_s_contexts(aug_source)
+=======
+        aug_source_ids = [self.i_vocab_w2id[w] for w in aug_source]
+
+        translated = ["<T>" for _ in xrange(self.t_size)]
+        cover = np.zeros(len(aug_source)-1, dtype=np.int8)
+        cover[0] = 2
+
+        print aug_source
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
         initial = State(
             prev_state=None,
             translated=translated,
+<<<<<<< HEAD
             s_i=0,
             cover=cover,
             jump=0,
             t_score=0,
             d_score=0,
             f_score=0,
+=======
+            s_i= 0,
+            score=0.0,
+            cover=cover,
+            jump=0
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         )
 
         expanded = [initial]
         leaves = []
 
 
+<<<<<<< HEAD
         iteration = 1
         while len(expanded) > 0:
             logging.info("Iteration %d. New states %d." % (iteration, len(expanded)))
             iteration += 1
+=======
+
+        while len(expanded) > 0:
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
             new_expanded = []
 
             for state in expanded:
+<<<<<<< HEAD
                 for new_state in self.expand(state, aug_source, aug_source_ids, s_contexts, s_contexts_ids):
+=======
+                for new_state in self.expand(state, aug_source, aug_source_ids):
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                     if new_state.is_final():
                         leaves.append(new_state)
                     new_expanded.append(new_state)
 
+<<<<<<< HEAD
 
             stacks = {}
             for s in new_expanded:
@@ -390,6 +528,36 @@ class ZDecoder(object):
                         observed[s][t] += 1
         for s, t_words in observed.items():
             observed[s] = set([w for w,_ in t_words.most_common(t_cache_size)])
+=======
+            expanded = new_expanded
+
+        leaves.sort(key=lambda state: state.score)
+
+        for state in leaves:
+
+            print state.is_final(), state
+            print
+
+
+
+    @staticmethod
+    def load(t_model_fl=None, d_model_fl=None, f_model_fl=None, i_vocab_fl=None, o_vocab_fl=None,
+             s_size=None, t_size=None, observed_data_fl=None):
+        logging.info("Initializing decoder model.")
+        zdec = ZDecoder()
+
+        logging.info("Loading observed data.")
+        observed = {}
+        with open(observed_data_fl, "rb") as fl:
+            for line in fl:
+                tokens = map(int, line.rstrip().split())
+                context = tuple(tokens[(t_size-1):-1])
+                t = tokens[-1]
+                if context not in observed:
+                    observed[context] = {t}
+                else:
+                    observed[context].add(t)
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         zdec.observed = observed
 
         logging.info("T-Model:      %s" % t_model_fl)
@@ -397,6 +565,7 @@ class ZDecoder(object):
         t_model.read(t_model_fl)
 
         logging.info("D-Model:      %s" % d_model_fl)
+<<<<<<< HEAD
         d_model = nplm.NeuralLM()
         d_model.read(d_model_fl)
 
@@ -423,10 +592,29 @@ class ZDecoder(object):
         zdec.t_model = t_model
         zdec.d_model = d_model
         zdec.f_model = f_model
+=======
+        # TODO
+
+        logging.info("F-Model:      %s" % f_model_fl)
+        # TODO
+
+        logging.info("Input vocab:  %s" % i_vocab_fl)
+        i_vocab_id2w, i_vocab_w2id = load_vocab_file(i_vocab_fl)
+
+        logging.info("Output vocab: %s" % o_vocab_fl)
+        o_vocab_id2w, o_vocab_w2id = load_vocab_file(o_vocab_fl)
+
+        logging.info("Model size:   s=%d,t=1+%d. (%d-gram)." % (s_size, t_size-1, s_size + t_size))
+
+        zdec.t_model = t_model
+        zdec.d_model = None
+        zdec.f_model = None
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         zdec.s_size = s_size
         zdec.t_size = t_size
         zdec.i_vocab_w2id = i_vocab_w2id
         zdec.i_vocab_id2w = i_vocab_id2w
+<<<<<<< HEAD
         zdec.o_t_vocab_w2id = o_t_vocab_w2id
         zdec.o_t_vocab_id2w = o_t_vocab_id2w
         zdec.o_d_vocab_w2id = o_d_vocab_w2id
@@ -438,6 +626,10 @@ class ZDecoder(object):
         zdec.t_weight = t_weight
         zdec.d_weight = d_weight
         zdec.f_weight = f_weight
+=======
+        zdec.o_vocab_w2id = o_vocab_w2id
+        zdec.o_vocab_id2w = o_vocab_id2w
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 
         return zdec
 
@@ -450,12 +642,21 @@ class ZDecoder(object):
             decoded.append(self.i_vocab_id2w[w_id])
         for w_id in s_context:
             decoded.append(self.i_vocab_id2w[w_id])
+<<<<<<< HEAD
         decoded.append(self.o_t_vocab_id2w[t])
         return decoded
 
     def self_test(self, k=256, observed_fl=None):
 
         t_words = u"i live".decode("utf-8").split()
+=======
+        decoded.append(self.o_vocab_id2w[t])
+        return decoded
+
+    def self_test(self, k=32, observed_fl=None):
+
+        t_words = u"man house glass book".decode("utf-8").split()
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
         aug_t_words = ["T_" + t for t in t_words]
 
         if observed_fl is not None:
@@ -475,7 +676,11 @@ class ZDecoder(object):
                 logging.info("Loaded observed data (%d target words)." % len(observed))
 
             for t in aug_t_words:
+<<<<<<< HEAD
                 t_id = self.o_t_vocab_w2id[t]
+=======
+                t_id = self.o_vocab_w2id[t]
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
                 logging.info("Testing t='%s' (%d)." % (t, t_id))
                 best_k = queue.PriorityQueue(k)
                 for t_history, s_context in observed[t_id]:
@@ -501,3 +706,14 @@ class ZDecoder(object):
                 best = reversed(best)
                 for score, translation in best:
                     print score, t, "=>", translation
+<<<<<<< HEAD
+=======
+
+
+def load_vocab_file(file_path):
+    with open(file_path, "rb") as fl:
+        vocab_id2w = {int(w_id):w for w_id,w in [entry.split("\t") for entry in fl.read().rstrip().split("\n")]}
+        vocab_w2id = {w:w_id for w_id,w in vocab_id2w.iteritems()}
+        logging.info("Loaded %d tokens" % len(vocab_id2w))
+    return vocab_id2w, vocab_w2id
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01

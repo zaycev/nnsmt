@@ -1,7 +1,11 @@
 ### Compilation options.
 
 # C++ compiler. Tested with g++ and Intel icpc.
+<<<<<<< HEAD
 CXX=/usr/local/Cellar/gcc49/4.9.0/bin/c++-4.9
+=======
+CXX=/usr/local/Cellar/gcc49/4.9.0rc1/bin/c++-4.9
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
 #CXX=icpc
 
 # Compiler options. Note that -DEIGEN_NO_DEBUG is essential for good performance!
@@ -171,4 +175,8 @@ python/nplm.o: python/nplm.cpp
 	$(CXX) -c -fPIC -I. $(ALL_CFLAGS) $(PYTHON_CFLAGS) $< -o $@
 
 python/nplm.so: python/nplm.o $(addprefix shared/,neuralLM.o $(OBJS))
+<<<<<<< HEAD
 	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@
+=======
+	$(CXX) -shared $(ALL_LDFLAGS) $(PYTHON_LDFLAGS) $^ $(ALL_LDLIBS) $(PYTHON_LDLIBS) -o $@ 
+>>>>>>> 58fe451a4af3d21f0a8579955cf3cae8993f8a01
