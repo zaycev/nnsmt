@@ -211,7 +211,40 @@ $ROOT/build/bin/trainNeuralNetwork                      \
     --validation_minibatch_size 1000&
 ```
 
-### Try decoder
+### 4. Try Decoder
+
+First, compile NPLM Python package (see instructions in NPLM readme file). Place compiled files in `./build/python`:
+
+```
+nplm.pxd
+nplm.pyx
+nplm.so
+```
+
+Run decoder:
+
+```
+cd ./sbin
+source run-env.sh
+
+$PYTHON $ROOT/nnsmt/zdec.py                             \
+    --t-model-fl $WORK_DIR/nplm/t.model/model.32        \
+    --d-model-fl $WORK_DIR/nplm/d.model/model.32        \
+    --f-model-fl $WORK_DIR/nplm/f.model/model.32        \
+    --i-vocab-fl $WORK_DIR/input.vocab.txt              \
+    --o-t-vocab-fl $WORK_DIR/output.t.vocab.txt         \
+    --o-d-vocab-fl $WORK_DIR/output.d.vocab.txt         \
+    --o-f-vocab-fl $WORK_DIR/output.f.vocab.txt         \
+    --source-vector-size 3                              \
+    --target-vector-size 3                              \
+    --observed-data $WORK_DIR/pp-alignment.txt          \
+    --max-jump 6                                        \
+    --max-fert 3                                        \
+    --train-file  $WORK_DIR/nplm/t.train.txt            \
+    --t-cache-size 100                                  \
+    < $TEST_SRC_TEXT
+
+```
 
 ### Related Links
 
