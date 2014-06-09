@@ -73,7 +73,7 @@ testNeuralNetwork
 trainNeuralNetwork
 ```
 
-To generate input data in NPLM model run the following script:
+To generate input data in NPLM format, run the following script:
 
 ```
 ./sbin/run-prepare.sh
@@ -131,6 +131,10 @@ pypy $ROOT/nnsmt/preparenplm.py                                 \
     --valid-data-size 5000
 ```
 
+Here we use `prepareNeuralLM` application to extract vocabularies of needed size and then use `preparenplm.py` to create train and validation data for NPLM (12 files in total, 2 train and 2 validation files for every model).
+
+* `source.vocab.txt` and `target.vocab.txt` - original target and source vocabularies.
+* `input.vocab.txt` and `input.vocab.txt` - NPLM input and output vocabularies. Input is a union of the original target and source files and output is just target vocabulary (plust some special null/start/end/...etc words).
 
 ### 3. Decoding
 
