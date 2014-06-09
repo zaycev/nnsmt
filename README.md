@@ -135,6 +135,8 @@ Here we use `prepareNeuralLM` application to extract vocabularies of needed size
 
 * `source.vocab.txt` and `target.vocab.txt` - original target and source vocabularies.
 * `input.vocab.txt` and `input.vocab.txt` - NPLM input and output vocabularies. Input is a union of the original target and source files and output is just target vocabulary (plust some special null/start/end/...etc words).
+* `write-[t,d,f]-train-file` - train files for translation, distortion and fertlity model. They contain training examples consisting of word IDs. 
+* `write-[t,d,f]-train-w-file` - the same as the previous files, but contain words instead of their IDs (for debugging purposes only).
 
 ### 3. Decoding
 
