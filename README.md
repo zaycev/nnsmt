@@ -1,5 +1,5 @@
-Word Bases MT System with NN
-============================
+Neural Word-Based Machine Translation
+=====================================
 
 #### Generative Story
 
